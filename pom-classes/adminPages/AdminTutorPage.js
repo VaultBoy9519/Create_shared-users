@@ -60,6 +60,7 @@ class AdminTutorPage {
     ];
 
     labels.forEach((label, index) => {
+      cy.wait(3000);
       label.click();
     });
     return this;
