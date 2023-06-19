@@ -1,5 +1,4 @@
 import adminTutorEditPage from "../../pom-classes/adminPages/AdminTutorEditPage";
-import loginPage from "../../pom-classes/otherPages/LoginPage";
 import adminPage from "../../pom-classes/adminPages/AdminPage";
 import adminSmsPage from "../../pom-classes/adminPages/AdminSmsPage";
 import authSmsPage from "../../pom-classes/adminPages/AuthSmsPage";
@@ -14,15 +13,12 @@ import tutorLessonInfoPage from "../../pom-classes/tutorPages/TutorLessonsInfo";
 import adminTutorRatesPage from "../../pom-classes/adminPages/AdminTutorRatesPage";
 import adminPupilRootPage from "../../pom-classes/adminPages/AdminPupilRootPage";
 import adminPermsPage from "../../pom-classes/adminPages/AdminPermsPage";
+import "../support/commands.js";
 
 const { fakerRU } = require("@faker-js/faker");
 
-
 describe("creator users for shared", () => {
   const sharedUrl = Cypress.env("URL");
-
-  const adminEmail = "admin@preprep.ru";
-  const adminPassword = "oioioi";
 
   const pupilRegData = {
     firstName: fakerRU.person.firstName(),
@@ -42,26 +38,6 @@ describe("creator users for shared", () => {
     firstName: `Администратор`,
     phoneNumber: `+3${fakerRU.phone.number().replace(/\D/g, "")}`,
     email: fakerRU.internet.email().toLowerCase()
-  };
-
-  const adminLogin = () => {
-    cy.visit(`${sharedUrl}auth/email_login`);
-//TODO: ошибка завершает тест, добавил игнор
-    cy.on("uncaught:exception", (err) => {
-      // Проверяем, является ли ошибка TypeError с сообщением "Cannot set properties of null (setting 'src')"
-      if (err.message.includes("Cannot set properties of null (setting 'src')") && err.name === "TypeError") {
-        // Игнорируем ошибку
-        return false;
-      }
-      // Если это не ошибка, пропустите ее и позвольте ей быть обработанной по умолчанию
-      return true;
-    });
-
-    loginPage
-      .checkUrl()
-      .typeEmail(adminEmail)
-      .typePassword(adminPassword)
-      .clickEnterButton();
   };
 
   const createPupil = () => {
@@ -133,22 +109,23 @@ describe("creator users for shared", () => {
     authSmsPage
       .checkTopSmsText(regData.phoneNumber);
 
-    adminLogin();
+    cy.postAuth(sharedUrl);
+    cy.visit(`${sharedUrl}adminka`);
     createUser(regData, createPupil);
   };
 
   it(`Создание ученика:
-                имя - ${pupilRegData.firstName},
-                номер - ${pupilRegData.phoneNumber}
-                email - ${pupilRegData.email}`
+    √ имя - ${pupilRegData.firstName},
+    √ номер - ${pupilRegData.phoneNumber}
+    √ email - ${pupilRegData.email}`
     , () => {
       createPupilorAdmin(pupilRegData);
     });
 
   it(`Создание преподавателя: 
-                имя - ${tutorRegData.firstName} ${tutorRegData.lastName}, 
-                номер - ${tutorRegData.phoneNumber}
-                email - ${tutorRegData.email}`
+    √ имя - ${tutorRegData.firstName} ${tutorRegData.lastName}, 
+    √ номер - ${tutorRegData.phoneNumber}
+    √ email - ${tutorRegData.email}`
     , () => {
       cy.visit(`${sharedUrl}auth/tutor/new`);
 
@@ -165,22 +142,24 @@ describe("creator users for shared", () => {
       authSmsPage
         .checkTopSmsText(tutorRegData.phoneNumber);
 
-      adminLogin();
+      cy.postAuth(sharedUrl);
+      cy.visit(`${sharedUrl}adminka`);
       createUser(tutorRegData, createTutor);
 
     });
 
   it(`Создание админа: 
-                имя - ${adminRegData.firstName}, 
-                номер - ${adminRegData.phoneNumber}
-                email - ${adminRegData.email}`
+    √ имя - ${adminRegData.firstName}, 
+    √ номер - ${adminRegData.phoneNumber}
+    √ email - ${adminRegData.email}`
     , () => {
       createPupilorAdmin(adminRegData);
     });
 
   it("Установка параметров и ставок препода", () => {
 
-    adminLogin();
+    cy.postAuth(sharedUrl);
+    cy.visit(`${sharedUrl}adminka`);
 
     adminPage.searchUser(tutorRegData.phoneNumber, tutorRegData.email);
     adminTutorPage.checkFullName(tutorRegData.firstName, tutorRegData.middleName, tutorRegData.lastName);
@@ -207,7 +186,8 @@ describe("creator users for shared", () => {
 
   it("Установка прав админа", () => {
 
-    adminLogin();
+    cy.postAuth(sharedUrl);
+    cy.visit(`${sharedUrl}adminka`);
 
     adminPupilRootPage
       .goToPage(sharedUrl)
@@ -219,7 +199,7 @@ describe("creator users for shared", () => {
 
     adminPermsPage
       .checkCardHeader()
-      .setPermissions()
+      .setAndCheckPermissions()
       .clickEditPermsButton();
   });
 

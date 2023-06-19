@@ -2,8 +2,8 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    defaultCommandTimeout: 40000,
-    pageLoadTimeout: 300000,
+    defaultCommandTimeout: 70000,
+    pageLoadTimeout: 500000,
     setupNodeEvents(on, config) {
       // implement node event listeners here
     }

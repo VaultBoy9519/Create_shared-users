@@ -4,7 +4,7 @@ import "../support/commands.js";
 
 const { fakerRU } = require("@faker-js/faker");
 
-// const sharedUrl = "https://review-mr-4857-de-lwq8xf.k8s.tetrika-school.ru/";
+// const sharedUrl = "https://develop.k8s.tetrika-school.ru/";
 const sharedUrl = Cypress.env("URL");
 
 const adminRegData = {
@@ -36,6 +36,6 @@ it("Установка прав админа", () => {
 
   adminPermsPage
     .checkCardHeader()
-    .setPermissions()
+    .setAndCheckPermissions()
     .clickEditPermsButton();
 });

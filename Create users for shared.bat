@@ -47,7 +47,7 @@ if "%OPTION%"=="1" (
 ) else if "%OPTION%"=="6" (
     start /wait "" cmd /c "npx cypress run --env URL=%URL% --spec ./cypress/e2e/create_tutor.cy.js,./cypress/e2e/create_admin.cy.js > consoleOutput.txt"
 ) else if "%OPTION%"=="7" (
-    start /wait "" cmd /c "npx cypress run --env URL=%URL% --spec ./cypress/e2e/create_pupil.cy.js,./cypress/e2e/create_tutor.cy.js,./cypress/e2e/create_admin.cy.js > consoleOutput.txt"
+    start /wait "" cmd /c "npx cypress run --env URL=%URL% --spec ./cypress/e2e/create_all_users.cy.js > consoleOutput.txt"
 ) else (
     echo Invalid option number. Please try again.
     goto input_option

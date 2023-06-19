@@ -1,0 +1,93 @@
+
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        12.12.0                                                                        │
+  │ Browser:        Electron 106 (headless)                                                        │
+  │ Node Version:   v18.12.1 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          1 found (create_all_users.cy.js)                                               │
+  │ Searched:       D:\Programming\WebstormProjects\projects\cypress\create_shared-users\cypress\e │
+  │                 2e\create_all_users.cy.js                                                      │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  create_all_users.cy.js                                                          (1 of 1)
+
+
+  creator users for shared
+    √ Создание ученика:
+    √ имя - Милица,
+    √ номер - +39463925293
+    √ email - averukyan.bernhard@mail.ru (114234ms)
+    √ Создание преподавателя: 
+    √ имя - Агап Рыбаков, 
+    √ номер - +39101947784
+    √ email - fekla.davis74@ya.ru (43371ms)
+    √ Создание админа: 
+    √ имя - Администратор, 
+    √ номер - +39723561690
+    √ email - valerii51@gmail.com (91353ms)
+    1) Установка параметров и ставок препода
+    √ Установка прав админа (4125ms)
+
+
+  4 passing (6m)
+  1 failing
+
+  1) creator users for shared
+       Установка параметров и ставок препода:
+     AssertionError: Timed out retrying after 70000ms: Expected to find content: 'profi' within the element: <table> and with the selector: 'td' but never did.
+      at AdminTutorRatesPage.checkRate (webpack:///./pom-classes/adminPages/AdminTutorRatesPage.js:28:7)
+      at Context.eval (webpack:///./cypress/e2e/create_all_users.cy.js:183:7)
+
+
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        5                                                                                │
+  │ Passing:      4                                                                                │
+  │ Failing:      1                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  1                                                                                │
+  │ Video:        true                                                                             │
+  │ Duration:     5 minutes, 55 seconds                                                            │
+  │ Spec Ran:     create_all_users.cy.js                                                           │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Screenshots)
+
+  -  D:\Programming\WebstormProjects\projects\cypress\create_shared-users\cypress\scr     (1280x720)
+     eenshots\create_all_users.cy.js\creator users for shared -- Установка параметров               
+      и ставок препода (failed).png                                                                 
+
+
+  (Video)
+
+  -  Started processing:  Compressing to 32 CRF                                                     
+    Compression progress:  39%
+    Compression progress:  74%
+  -  Finished processing: 27 seconds                                                 
+
+  -  Video output: D:\Programming\WebstormProjects\projects\cypress\create_shared-users\cypress\videos\create_all_users.cy.js.mp4
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ×  create_all_users.cy.js                   05:55        5        4        1        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ×  1 of 1 failed (100%)                     05:55        5        4        1        -        -  
+
